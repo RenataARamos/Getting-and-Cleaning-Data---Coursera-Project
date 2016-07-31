@@ -1,0 +1,430 @@
+Enter file contents heregetwd()
+[1] "C:/Users/marcelo.vramos1/Documents"
+Warning message:
+R graphics engine version 11 is not supported by this version of RStudio. The Plots tab will be disabled until a newer version of RStudio is installed. 
+> setwd("C:/Users/marcelo.vramos1/Desktop")
+> ls()
+ [1] "cnames"     "my_char"    "my_data"    "my_div"     "my_matrix"  "my_matrix2" "my_na"      "my_name"    "my_seq"    
+[10] "my_sqrt"    "my_vector"  "num_vect"   "old.dir"    "patients"   "tf"         "vect"       "vect2"      "x"         
+[19] "X"          "y"          "z"         
+> rm(list=ls())
+> if(!file.exists("project"))
++ {dir.create("project")}
+> file.exists("project")
+[1] TRUE
+> fileurl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+> download.file(fileurl,destfile="./project/Dataset.zip")
+trying URL 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
+Content type 'application/zip' length 62556944 bytes (59.7 MB)
+downloaded 59.7 MB
+
+> dateDownload<-date()
+> dateDownload
+[1] "Sun Jul 31 17:23:55 2016"
+> getOption("unzip")
+[1] "internal"
+Warning messages:
+1: In .HTMLsearch(query) : Unrecognized search field: title
+2: In .HTMLsearch(query) : Unrecognized search field: keyword
+3: In .HTMLsearch(query) : Unrecognized search field: alias
+> unzip(zipfile='.project/Dataset.zip',exdir="./project")
+Warning message:
+In unzip(zipfile = ".project/Dataset.zip", exdir = "./project") :
+  error 1 in extracting from zip file
+> unzip(zipfile='.project/Dataset.zip',files=NULL, list=FALSE,overwrite=TRUE,junkpaths=FALSE,exdir="./project",unzip="internal")
+Warning message:
+In unzip(zipfile = ".project/Dataset.zip", files = NULL, list = FALSE,  :
+  error 1 in extracting from zip file
+> unzip(zipfile=".\Desktop\project\dataset.zip")
+Error: '\D' is an unrecognized escape in character string starting "".\D"
+> unzip(zipfile='\Desktop\project\dataset.zip')
+Error: '\D' is an unrecognized escape in character string starting "'\D"
+> unzip(zipfile='.\project\dataset.zip')
+Error: '\p' is an unrecognized escape in character string starting "'.\p"
+> unzip("C:\Users\marcelo.vramos1\Desktop\project\dataset.zip")
+Error: '\U' used without hex digits in character string starting ""C:\U"
+> unzip('~/Dataset.zip')
+Warning message:
+In unzip("~/Dataset.zip") : error 1 in extracting from zip file
+> Dataset
+Error: object 'Dataset' not found
+> list.file('project')
+Error: could not find function "list.file"
+> list.files('project')
+[1] "dataset.zip"     "run_analysis"    "UCI HAR Dataset"
+> unzip(zipfile="./project/dataset.zip")
+> path_rf<-file.path("./project","UCi HAR Dataset")
+> files<-list.files(path_rf,recursive=TRUE)
+> files
+ [1] "activity_labels.txt"                          "features.txt"                                
+ [3] "features_info.txt"                            "README.txt"                                  
+ [5] "test/Inertial Signals/body_acc_x_test.txt"    "test/Inertial Signals/body_acc_y_test.txt"   
+ [7] "test/Inertial Signals/body_acc_z_test.txt"    "test/Inertial Signals/body_gyro_x_test.txt"  
+ [9] "test/Inertial Signals/body_gyro_y_test.txt"   "test/Inertial Signals/body_gyro_z_test.txt"  
+[11] "test/Inertial Signals/total_acc_x_test.txt"   "test/Inertial Signals/total_acc_y_test.txt"  
+[13] "test/Inertial Signals/total_acc_z_test.txt"   "test/subject_test.txt"                       
+[15] "test/X_test.txt"                              "test/y_test.txt"                             
+[17] "train/Inertial Signals/body_acc_x_train.txt"  "train/Inertial Signals/body_acc_y_train.txt" 
+[19] "train/Inertial Signals/body_acc_z_train.txt"  "train/Inertial Signals/body_gyro_x_train.txt"
+[21] "train/Inertial Signals/body_gyro_y_train.txt" "train/Inertial Signals/body_gyro_z_train.txt"
+[23] "train/Inertial Signals/total_acc_x_train.txt" "train/Inertial Signals/total_acc_y_train.txt"
+[25] "train/Inertial Signals/total_acc_z_train.txt" "train/subject_train.txt"                     
+[27] "train/X_train.txt"                            "train/y_train.txt"                           
+> dataActicityTest<-read.table(file.path(path_rf,"test","y_test.txt"),header=FALSE)
+> dataActivitytrain<-read.table(file.path(path_rf,"train","y_train.txt"),header=FALSE)
+> dataSubjectTrain<-read.table(file.path(path_rf,"train","subject_train.txt"),header=FALSE)
+> dataSubjectTest<-read.table(file.path(path_rf,"test","subject_test.txt"),header=FALSE)
+> dataFeatureTest<-read.table(file.path(path_rf,"test","X_test.tst"),header=FALSE)
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file './project/UCi HAR Dataset/test/X_test.tst': No such file or directory
+> dataFeatureTest<-read.table(file.path(path_rf,"test","X_test.tXt"),header=FALSE)
+> dataFeatureTrain<-read.table(file.path(path_rf,"train","X_train.txt"),header=FALSE)
+> str(dataActivityTest)
+Error in str(dataActivityTest) : object 'dataActivityTest' not found
+> View(dataActicityTest)
+> View(dataFeatureTest)
+> View(dataFeatureTrain)
+> dataSubject<-rbind(dataSubjectTrain,dataSubjectTest)
+> dataActivity<-rbind(dataActivityTrain,dataActivityTest)
+Error in rbind(dataActivityTrain, dataActivityTest) : 
+  object 'dataActivityTrain' not found
+> dataActivity<-rbind(dataActivivitytrain,dataActivityTest)
+Error in rbind(dataActivivitytrain, dataActivityTest) : 
+  object 'dataActivivitytrain' not found
+> View(dataActivitytrain)
+> dataActivity<-rbind(dataActivitytrain,dataActivityTest)
+Error in rbind(dataActivitytrain, dataActivityTest) : 
+  object 'dataActivityTest' not found
+> dataFeatures<-rbind(dataFeatureTest,dataFeatureTrain)
+> dataActivity<-rbind(dataActivitytrain,dataActivityTest)
+Error in rbind(dataActivitytrain, dataActivityTest) : 
+  object 'dataActivityTest' not found
+> dataActivity<-rbind(dataActivitytrain,dataActicityTest)
+> names(dataSubject)<-c("subjects")
+> names(dataActivity)<-c("activity")
+> dataFeaturesnames<-read.table(file.path(path_rf,"features.txt"),head=FALSE)
+> names(dataFeatures)<-dataFeaturesnames$V2
+> dataCombine<-cbind(dataSubject,dataActivity)
+> Data<-cbind(dataFeatures,dataCombine)
+> View(dataSubjectTrain)
+> View(Data)
+> subdataFeaturesnames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)",dataFeaturesNames$V2)]
+Error: object 'dataFeaturesNames' not found
+> subdataFeaturesnames<-dataFeaturesnames$V2[grep("mean\\(\\)|std\\(\\)",dataFeaturesnames$V2)]
+> selectedNames<-c(as.character(subdataFeaturesnames),"subject","activity")
+> Data<-subset(Data,select=selectedNames)
+Error in `[.data.frame`(x, r, vars, drop = drop) : 
+  undefined columns selected
+> Data<-subset(Data,select=selectedNames)
+Error in `[.data.frame`(x, r, vars, drop = drop) : 
+  undefined columns selected
+> View(Data)
+> selectedNames<-c(as.character(subdataFeaturesnames),"subject","activity")
+> Data<-subset(Data,select=selectedNames)
+Error in `[.data.frame`(x, r, vars, drop = drop) : 
+  undefined columns selected
+> activitylabels<-read.table(file.path(path_rf,"activity_labels.txt"),header=FALSE)
+> head(Data$activity,30)
+ [1] 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 4 4 4
+> Data$activity<-factor(Data$activity)
+> Data$activity<-factor(Data$activity,labels=as.character(activityLabels$V2))
+Error in factor(Data$activity, labels = as.character(activityLabels$V2)) : 
+  object 'activityLabels' not found
+> Data$activity<-factor(Data$activity,labels=as.character(activitylabels$V2))
+> head(Data$activity,30)
+ [1] STANDING STANDING STANDING STANDING STANDING STANDING
+ [7] STANDING STANDING STANDING STANDING STANDING STANDING
+[13] STANDING STANDING STANDING STANDING STANDING STANDING
+[19] STANDING STANDING STANDING STANDING STANDING STANDING
+[25] STANDING STANDING STANDING SITTING  SITTING  SITTING 
+6 Levels: WALKING WALKING_UPSTAIRS ... LAYING
+> names(Data)<-gsub("^t","time",names(Data))
+> names(Data)<-gsub("^f","frequency",names(Data))
+> names(Data)<-gsub("Acc","accelerometer",names(Data))
+> names(Data)<-gsub("Gyro","gyroscope",names(Data))
+> names(Data)<-gsub("Mag","magnitude",names(Data))
+> names(Data)<-gsub("BodyBody","Body",names(Data))
+> names(Data)
+  [1] "timeBodyaccelerometer-mean()-X"                     "timeBodyaccelerometer-mean()-Y"                    
+  [3] "timeBodyaccelerometer-mean()-Z"                     "timeBodyaccelerometer-std()-X"                     
+  [5] "timeBodyaccelerometer-std()-Y"                      "timeBodyaccelerometer-std()-Z"                     
+  [7] "timeBodyaccelerometer-mad()-X"                      "timeBodyaccelerometer-mad()-Y"                     
+  [9] "timeBodyaccelerometer-mad()-Z"                      "timeBodyaccelerometer-max()-X"                     
+ [11] "timeBodyaccelerometer-max()-Y"                      "timeBodyaccelerometer-max()-Z"                     
+ [13] "timeBodyaccelerometer-min()-X"                      "timeBodyaccelerometer-min()-Y"                     
+ [15] "timeBodyaccelerometer-min()-Z"                      "timeBodyaccelerometer-sma()"                       
+ [17] "timeBodyaccelerometer-energy()-X"                   "timeBodyaccelerometer-energy()-Y"                  
+ [19] "timeBodyaccelerometer-energy()-Z"                   "timeBodyaccelerometer-iqr()-X"                     
+ [21] "timeBodyaccelerometer-iqr()-Y"                      "timeBodyaccelerometer-iqr()-Z"                     
+ [23] "timeBodyaccelerometer-entropy()-X"                  "timeBodyaccelerometer-entropy()-Y"                 
+ [25] "timeBodyaccelerometer-entropy()-Z"                  "timeBodyaccelerometer-arCoeff()-X,1"               
+ [27] "timeBodyaccelerometer-arCoeff()-X,2"                "timeBodyaccelerometer-arCoeff()-X,3"               
+ [29] "timeBodyaccelerometer-arCoeff()-X,4"                "timeBodyaccelerometer-arCoeff()-Y,1"               
+ [31] "timeBodyaccelerometer-arCoeff()-Y,2"                "timeBodyaccelerometer-arCoeff()-Y,3"               
+ [33] "timeBodyaccelerometer-arCoeff()-Y,4"                "timeBodyaccelerometer-arCoeff()-Z,1"               
+ [35] "timeBodyaccelerometer-arCoeff()-Z,2"                "timeBodyaccelerometer-arCoeff()-Z,3"               
+ [37] "timeBodyaccelerometer-arCoeff()-Z,4"                "timeBodyaccelerometer-correlation()-X,Y"           
+ [39] "timeBodyaccelerometer-correlation()-X,Z"            "timeBodyaccelerometer-correlation()-Y,Z"           
+ [41] "timeGravityaccelerometer-mean()-X"                  "timeGravityaccelerometer-mean()-Y"                 
+ [43] "timeGravityaccelerometer-mean()-Z"                  "timeGravityaccelerometer-std()-X"                  
+ [45] "timeGravityaccelerometer-std()-Y"                   "timeGravityaccelerometer-std()-Z"                  
+ [47] "timeGravityaccelerometer-mad()-X"                   "timeGravityaccelerometer-mad()-Y"                  
+ [49] "timeGravityaccelerometer-mad()-Z"                   "timeGravityaccelerometer-max()-X"                  
+ [51] "timeGravityaccelerometer-max()-Y"                   "timeGravityaccelerometer-max()-Z"                  
+ [53] "timeGravityaccelerometer-min()-X"                   "timeGravityaccelerometer-min()-Y"                  
+ [55] "timeGravityaccelerometer-min()-Z"                   "timeGravityaccelerometer-sma()"                    
+ [57] "timeGravityaccelerometer-energy()-X"                "timeGravityaccelerometer-energy()-Y"               
+ [59] "timeGravityaccelerometer-energy()-Z"                "timeGravityaccelerometer-iqr()-X"                  
+ [61] "timeGravityaccelerometer-iqr()-Y"                   "timeGravityaccelerometer-iqr()-Z"                  
+ [63] "timeGravityaccelerometer-entropy()-X"               "timeGravityaccelerometer-entropy()-Y"              
+ [65] "timeGravityaccelerometer-entropy()-Z"               "timeGravityaccelerometer-arCoeff()-X,1"            
+ [67] "timeGravityaccelerometer-arCoeff()-X,2"             "timeGravityaccelerometer-arCoeff()-X,3"            
+ [69] "timeGravityaccelerometer-arCoeff()-X,4"             "timeGravityaccelerometer-arCoeff()-Y,1"            
+ [71] "timeGravityaccelerometer-arCoeff()-Y,2"             "timeGravityaccelerometer-arCoeff()-Y,3"            
+ [73] "timeGravityaccelerometer-arCoeff()-Y,4"             "timeGravityaccelerometer-arCoeff()-Z,1"            
+ [75] "timeGravityaccelerometer-arCoeff()-Z,2"             "timeGravityaccelerometer-arCoeff()-Z,3"            
+ [77] "timeGravityaccelerometer-arCoeff()-Z,4"             "timeGravityaccelerometer-correlation()-X,Y"        
+ [79] "timeGravityaccelerometer-correlation()-X,Z"         "timeGravityaccelerometer-correlation()-Y,Z"        
+ [81] "timeBodyaccelerometerJerk-mean()-X"                 "timeBodyaccelerometerJerk-mean()-Y"                
+ [83] "timeBodyaccelerometerJerk-mean()-Z"                 "timeBodyaccelerometerJerk-std()-X"                 
+ [85] "timeBodyaccelerometerJerk-std()-Y"                  "timeBodyaccelerometerJerk-std()-Z"                 
+ [87] "timeBodyaccelerometerJerk-mad()-X"                  "timeBodyaccelerometerJerk-mad()-Y"                 
+ [89] "timeBodyaccelerometerJerk-mad()-Z"                  "timeBodyaccelerometerJerk-max()-X"                 
+ [91] "timeBodyaccelerometerJerk-max()-Y"                  "timeBodyaccelerometerJerk-max()-Z"                 
+ [93] "timeBodyaccelerometerJerk-min()-X"                  "timeBodyaccelerometerJerk-min()-Y"                 
+ [95] "timeBodyaccelerometerJerk-min()-Z"                  "timeBodyaccelerometerJerk-sma()"                   
+ [97] "timeBodyaccelerometerJerk-energy()-X"               "timeBodyaccelerometerJerk-energy()-Y"              
+ [99] "timeBodyaccelerometerJerk-energy()-Z"               "timeBodyaccelerometerJerk-iqr()-X"                 
+[101] "timeBodyaccelerometerJerk-iqr()-Y"                  "timeBodyaccelerometerJerk-iqr()-Z"                 
+[103] "timeBodyaccelerometerJerk-entropy()-X"              "timeBodyaccelerometerJerk-entropy()-Y"             
+[105] "timeBodyaccelerometerJerk-entropy()-Z"              "timeBodyaccelerometerJerk-arCoeff()-X,1"           
+[107] "timeBodyaccelerometerJerk-arCoeff()-X,2"            "timeBodyaccelerometerJerk-arCoeff()-X,3"           
+[109] "timeBodyaccelerometerJerk-arCoeff()-X,4"            "timeBodyaccelerometerJerk-arCoeff()-Y,1"           
+[111] "timeBodyaccelerometerJerk-arCoeff()-Y,2"            "timeBodyaccelerometerJerk-arCoeff()-Y,3"           
+[113] "timeBodyaccelerometerJerk-arCoeff()-Y,4"            "timeBodyaccelerometerJerk-arCoeff()-Z,1"           
+[115] "timeBodyaccelerometerJerk-arCoeff()-Z,2"            "timeBodyaccelerometerJerk-arCoeff()-Z,3"           
+[117] "timeBodyaccelerometerJerk-arCoeff()-Z,4"            "timeBodyaccelerometerJerk-correlation()-X,Y"       
+[119] "timeBodyaccelerometerJerk-correlation()-X,Z"        "timeBodyaccelerometerJerk-correlation()-Y,Z"       
+[121] "timeBodygyroscope-mean()-X"                         "timeBodygyroscope-mean()-Y"                        
+[123] "timeBodygyroscope-mean()-Z"                         "timeBodygyroscope-std()-X"                         
+[125] "timeBodygyroscope-std()-Y"                          "timeBodygyroscope-std()-Z"                         
+[127] "timeBodygyroscope-mad()-X"                          "timeBodygyroscope-mad()-Y"                         
+[129] "timeBodygyroscope-mad()-Z"                          "timeBodygyroscope-max()-X"                         
+[131] "timeBodygyroscope-max()-Y"                          "timeBodygyroscope-max()-Z"                         
+[133] "timeBodygyroscope-min()-X"                          "timeBodygyroscope-min()-Y"                         
+[135] "timeBodygyroscope-min()-Z"                          "timeBodygyroscope-sma()"                           
+[137] "timeBodygyroscope-energy()-X"                       "timeBodygyroscope-energy()-Y"                      
+[139] "timeBodygyroscope-energy()-Z"                       "timeBodygyroscope-iqr()-X"                         
+[141] "timeBodygyroscope-iqr()-Y"                          "timeBodygyroscope-iqr()-Z"                         
+[143] "timeBodygyroscope-entropy()-X"                      "timeBodygyroscope-entropy()-Y"                     
+[145] "timeBodygyroscope-entropy()-Z"                      "timeBodygyroscope-arCoeff()-X,1"                   
+[147] "timeBodygyroscope-arCoeff()-X,2"                    "timeBodygyroscope-arCoeff()-X,3"                   
+[149] "timeBodygyroscope-arCoeff()-X,4"                    "timeBodygyroscope-arCoeff()-Y,1"                   
+[151] "timeBodygyroscope-arCoeff()-Y,2"                    "timeBodygyroscope-arCoeff()-Y,3"                   
+[153] "timeBodygyroscope-arCoeff()-Y,4"                    "timeBodygyroscope-arCoeff()-Z,1"                   
+[155] "timeBodygyroscope-arCoeff()-Z,2"                    "timeBodygyroscope-arCoeff()-Z,3"                   
+[157] "timeBodygyroscope-arCoeff()-Z,4"                    "timeBodygyroscope-correlation()-X,Y"               
+[159] "timeBodygyroscope-correlation()-X,Z"                "timeBodygyroscope-correlation()-Y,Z"               
+[161] "timeBodygyroscopeJerk-mean()-X"                     "timeBodygyroscopeJerk-mean()-Y"                    
+[163] "timeBodygyroscopeJerk-mean()-Z"                     "timeBodygyroscopeJerk-std()-X"                     
+[165] "timeBodygyroscopeJerk-std()-Y"                      "timeBodygyroscopeJerk-std()-Z"                     
+[167] "timeBodygyroscopeJerk-mad()-X"                      "timeBodygyroscopeJerk-mad()-Y"                     
+[169] "timeBodygyroscopeJerk-mad()-Z"                      "timeBodygyroscopeJerk-max()-X"                     
+[171] "timeBodygyroscopeJerk-max()-Y"                      "timeBodygyroscopeJerk-max()-Z"                     
+[173] "timeBodygyroscopeJerk-min()-X"                      "timeBodygyroscopeJerk-min()-Y"                     
+[175] "timeBodygyroscopeJerk-min()-Z"                      "timeBodygyroscopeJerk-sma()"                       
+[177] "timeBodygyroscopeJerk-energy()-X"                   "timeBodygyroscopeJerk-energy()-Y"                  
+[179] "timeBodygyroscopeJerk-energy()-Z"                   "timeBodygyroscopeJerk-iqr()-X"                     
+[181] "timeBodygyroscopeJerk-iqr()-Y"                      "timeBodygyroscopeJerk-iqr()-Z"                     
+[183] "timeBodygyroscopeJerk-entropy()-X"                  "timeBodygyroscopeJerk-entropy()-Y"                 
+[185] "timeBodygyroscopeJerk-entropy()-Z"                  "timeBodygyroscopeJerk-arCoeff()-X,1"               
+[187] "timeBodygyroscopeJerk-arCoeff()-X,2"                "timeBodygyroscopeJerk-arCoeff()-X,3"               
+[189] "timeBodygyroscopeJerk-arCoeff()-X,4"                "timeBodygyroscopeJerk-arCoeff()-Y,1"               
+[191] "timeBodygyroscopeJerk-arCoeff()-Y,2"                "timeBodygyroscopeJerk-arCoeff()-Y,3"               
+[193] "timeBodygyroscopeJerk-arCoeff()-Y,4"                "timeBodygyroscopeJerk-arCoeff()-Z,1"               
+[195] "timeBodygyroscopeJerk-arCoeff()-Z,2"                "timeBodygyroscopeJerk-arCoeff()-Z,3"               
+[197] "timeBodygyroscopeJerk-arCoeff()-Z,4"                "timeBodygyroscopeJerk-correlation()-X,Y"           
+[199] "timeBodygyroscopeJerk-correlation()-X,Z"            "timeBodygyroscopeJerk-correlation()-Y,Z"           
+[201] "timeBodyaccelerometermagnitude-mean()"              "timeBodyaccelerometermagnitude-std()"              
+[203] "timeBodyaccelerometermagnitude-mad()"               "timeBodyaccelerometermagnitude-max()"              
+[205] "timeBodyaccelerometermagnitude-min()"               "timeBodyaccelerometermagnitude-sma()"              
+[207] "timeBodyaccelerometermagnitude-energy()"            "timeBodyaccelerometermagnitude-iqr()"              
+[209] "timeBodyaccelerometermagnitude-entropy()"           "timeBodyaccelerometermagnitude-arCoeff()1"         
+[211] "timeBodyaccelerometermagnitude-arCoeff()2"          "timeBodyaccelerometermagnitude-arCoeff()3"         
+[213] "timeBodyaccelerometermagnitude-arCoeff()4"          "timeGravityaccelerometermagnitude-mean()"          
+[215] "timeGravityaccelerometermagnitude-std()"            "timeGravityaccelerometermagnitude-mad()"           
+[217] "timeGravityaccelerometermagnitude-max()"            "timeGravityaccelerometermagnitude-min()"           
+[219] "timeGravityaccelerometermagnitude-sma()"            "timeGravityaccelerometermagnitude-energy()"        
+[221] "timeGravityaccelerometermagnitude-iqr()"            "timeGravityaccelerometermagnitude-entropy()"       
+[223] "timeGravityaccelerometermagnitude-arCoeff()1"       "timeGravityaccelerometermagnitude-arCoeff()2"      
+[225] "timeGravityaccelerometermagnitude-arCoeff()3"       "timeGravityaccelerometermagnitude-arCoeff()4"      
+[227] "timeBodyaccelerometerJerkmagnitude-mean()"          "timeBodyaccelerometerJerkmagnitude-std()"          
+[229] "timeBodyaccelerometerJerkmagnitude-mad()"           "timeBodyaccelerometerJerkmagnitude-max()"          
+[231] "timeBodyaccelerometerJerkmagnitude-min()"           "timeBodyaccelerometerJerkmagnitude-sma()"          
+[233] "timeBodyaccelerometerJerkmagnitude-energy()"        "timeBodyaccelerometerJerkmagnitude-iqr()"          
+[235] "timeBodyaccelerometerJerkmagnitude-entropy()"       "timeBodyaccelerometerJerkmagnitude-arCoeff()1"     
+[237] "timeBodyaccelerometerJerkmagnitude-arCoeff()2"      "timeBodyaccelerometerJerkmagnitude-arCoeff()3"     
+[239] "timeBodyaccelerometerJerkmagnitude-arCoeff()4"      "timeBodygyroscopemagnitude-mean()"                 
+[241] "timeBodygyroscopemagnitude-std()"                   "timeBodygyroscopemagnitude-mad()"                  
+[243] "timeBodygyroscopemagnitude-max()"                   "timeBodygyroscopemagnitude-min()"                  
+[245] "timeBodygyroscopemagnitude-sma()"                   "timeBodygyroscopemagnitude-energy()"               
+[247] "timeBodygyroscopemagnitude-iqr()"                   "timeBodygyroscopemagnitude-entropy()"              
+[249] "timeBodygyroscopemagnitude-arCoeff()1"              "timeBodygyroscopemagnitude-arCoeff()2"             
+[251] "timeBodygyroscopemagnitude-arCoeff()3"              "timeBodygyroscopemagnitude-arCoeff()4"             
+[253] "timeBodygyroscopeJerkmagnitude-mean()"              "timeBodygyroscopeJerkmagnitude-std()"              
+[255] "timeBodygyroscopeJerkmagnitude-mad()"               "timeBodygyroscopeJerkmagnitude-max()"              
+[257] "timeBodygyroscopeJerkmagnitude-min()"               "timeBodygyroscopeJerkmagnitude-sma()"              
+[259] "timeBodygyroscopeJerkmagnitude-energy()"            "timeBodygyroscopeJerkmagnitude-iqr()"              
+[261] "timeBodygyroscopeJerkmagnitude-entropy()"           "timeBodygyroscopeJerkmagnitude-arCoeff()1"         
+[263] "timeBodygyroscopeJerkmagnitude-arCoeff()2"          "timeBodygyroscopeJerkmagnitude-arCoeff()3"         
+[265] "timeBodygyroscopeJerkmagnitude-arCoeff()4"          "frequencyBodyaccelerometer-mean()-X"               
+[267] "frequencyBodyaccelerometer-mean()-Y"                "frequencyBodyaccelerometer-mean()-Z"               
+[269] "frequencyBodyaccelerometer-std()-X"                 "frequencyBodyaccelerometer-std()-Y"                
+[271] "frequencyBodyaccelerometer-std()-Z"                 "frequencyBodyaccelerometer-mad()-X"                
+[273] "frequencyBodyaccelerometer-mad()-Y"                 "frequencyBodyaccelerometer-mad()-Z"                
+[275] "frequencyBodyaccelerometer-max()-X"                 "frequencyBodyaccelerometer-max()-Y"                
+[277] "frequencyBodyaccelerometer-max()-Z"                 "frequencyBodyaccelerometer-min()-X"                
+[279] "frequencyBodyaccelerometer-min()-Y"                 "frequencyBodyaccelerometer-min()-Z"                
+[281] "frequencyBodyaccelerometer-sma()"                   "frequencyBodyaccelerometer-energy()-X"             
+[283] "frequencyBodyaccelerometer-energy()-Y"              "frequencyBodyaccelerometer-energy()-Z"             
+[285] "frequencyBodyaccelerometer-iqr()-X"                 "frequencyBodyaccelerometer-iqr()-Y"                
+[287] "frequencyBodyaccelerometer-iqr()-Z"                 "frequencyBodyaccelerometer-entropy()-X"            
+[289] "frequencyBodyaccelerometer-entropy()-Y"             "frequencyBodyaccelerometer-entropy()-Z"            
+[291] "frequencyBodyaccelerometer-maxInds-X"               "frequencyBodyaccelerometer-maxInds-Y"              
+[293] "frequencyBodyaccelerometer-maxInds-Z"               "frequencyBodyaccelerometer-meanFreq()-X"           
+[295] "frequencyBodyaccelerometer-meanFreq()-Y"            "frequencyBodyaccelerometer-meanFreq()-Z"           
+[297] "frequencyBodyaccelerometer-skewness()-X"            "frequencyBodyaccelerometer-kurtosis()-X"           
+[299] "frequencyBodyaccelerometer-skewness()-Y"            "frequencyBodyaccelerometer-kurtosis()-Y"           
+[301] "frequencyBodyaccelerometer-skewness()-Z"            "frequencyBodyaccelerometer-kurtosis()-Z"           
+[303] "frequencyBodyaccelerometer-bandsEnergy()-1,8"       "frequencyBodyaccelerometer-bandsEnergy()-9,16"     
+[305] "frequencyBodyaccelerometer-bandsEnergy()-17,24"     "frequencyBodyaccelerometer-bandsEnergy()-25,32"    
+[307] "frequencyBodyaccelerometer-bandsEnergy()-33,40"     "frequencyBodyaccelerometer-bandsEnergy()-41,48"    
+[309] "frequencyBodyaccelerometer-bandsEnergy()-49,56"     "frequencyBodyaccelerometer-bandsEnergy()-57,64"    
+[311] "frequencyBodyaccelerometer-bandsEnergy()-1,16"      "frequencyBodyaccelerometer-bandsEnergy()-17,32"    
+[313] "frequencyBodyaccelerometer-bandsEnergy()-33,48"     "frequencyBodyaccelerometer-bandsEnergy()-49,64"    
+[315] "frequencyBodyaccelerometer-bandsEnergy()-1,24"      "frequencyBodyaccelerometer-bandsEnergy()-25,48"    
+[317] "frequencyBodyaccelerometer-bandsEnergy()-1,8"       "frequencyBodyaccelerometer-bandsEnergy()-9,16"     
+[319] "frequencyBodyaccelerometer-bandsEnergy()-17,24"     "frequencyBodyaccelerometer-bandsEnergy()-25,32"    
+[321] "frequencyBodyaccelerometer-bandsEnergy()-33,40"     "frequencyBodyaccelerometer-bandsEnergy()-41,48"    
+[323] "frequencyBodyaccelerometer-bandsEnergy()-49,56"     "frequencyBodyaccelerometer-bandsEnergy()-57,64"    
+[325] "frequencyBodyaccelerometer-bandsEnergy()-1,16"      "frequencyBodyaccelerometer-bandsEnergy()-17,32"    
+[327] "frequencyBodyaccelerometer-bandsEnergy()-33,48"     "frequencyBodyaccelerometer-bandsEnergy()-49,64"    
+[329] "frequencyBodyaccelerometer-bandsEnergy()-1,24"      "frequencyBodyaccelerometer-bandsEnergy()-25,48"    
+[331] "frequencyBodyaccelerometer-bandsEnergy()-1,8"       "frequencyBodyaccelerometer-bandsEnergy()-9,16"     
+[333] "frequencyBodyaccelerometer-bandsEnergy()-17,24"     "frequencyBodyaccelerometer-bandsEnergy()-25,32"    
+[335] "frequencyBodyaccelerometer-bandsEnergy()-33,40"     "frequencyBodyaccelerometer-bandsEnergy()-41,48"    
+[337] "frequencyBodyaccelerometer-bandsEnergy()-49,56"     "frequencyBodyaccelerometer-bandsEnergy()-57,64"    
+[339] "frequencyBodyaccelerometer-bandsEnergy()-1,16"      "frequencyBodyaccelerometer-bandsEnergy()-17,32"    
+[341] "frequencyBodyaccelerometer-bandsEnergy()-33,48"     "frequencyBodyaccelerometer-bandsEnergy()-49,64"    
+[343] "frequencyBodyaccelerometer-bandsEnergy()-1,24"      "frequencyBodyaccelerometer-bandsEnergy()-25,48"    
+[345] "frequencyBodyaccelerometerJerk-mean()-X"            "frequencyBodyaccelerometerJerk-mean()-Y"           
+[347] "frequencyBodyaccelerometerJerk-mean()-Z"            "frequencyBodyaccelerometerJerk-std()-X"            
+[349] "frequencyBodyaccelerometerJerk-std()-Y"             "frequencyBodyaccelerometerJerk-std()-Z"            
+[351] "frequencyBodyaccelerometerJerk-mad()-X"             "frequencyBodyaccelerometerJerk-mad()-Y"            
+[353] "frequencyBodyaccelerometerJerk-mad()-Z"             "frequencyBodyaccelerometerJerk-max()-X"            
+[355] "frequencyBodyaccelerometerJerk-max()-Y"             "frequencyBodyaccelerometerJerk-max()-Z"            
+[357] "frequencyBodyaccelerometerJerk-min()-X"             "frequencyBodyaccelerometerJerk-min()-Y"            
+[359] "frequencyBodyaccelerometerJerk-min()-Z"             "frequencyBodyaccelerometerJerk-sma()"              
+[361] "frequencyBodyaccelerometerJerk-energy()-X"          "frequencyBodyaccelerometerJerk-energy()-Y"         
+[363] "frequencyBodyaccelerometerJerk-energy()-Z"          "frequencyBodyaccelerometerJerk-iqr()-X"            
+[365] "frequencyBodyaccelerometerJerk-iqr()-Y"             "frequencyBodyaccelerometerJerk-iqr()-Z"            
+[367] "frequencyBodyaccelerometerJerk-entropy()-X"         "frequencyBodyaccelerometerJerk-entropy()-Y"        
+[369] "frequencyBodyaccelerometerJerk-entropy()-Z"         "frequencyBodyaccelerometerJerk-maxInds-X"          
+[371] "frequencyBodyaccelerometerJerk-maxInds-Y"           "frequencyBodyaccelerometerJerk-maxInds-Z"          
+[373] "frequencyBodyaccelerometerJerk-meanFreq()-X"        "frequencyBodyaccelerometerJerk-meanFreq()-Y"       
+[375] "frequencyBodyaccelerometerJerk-meanFreq()-Z"        "frequencyBodyaccelerometerJerk-skewness()-X"       
+[377] "frequencyBodyaccelerometerJerk-kurtosis()-X"        "frequencyBodyaccelerometerJerk-skewness()-Y"       
+[379] "frequencyBodyaccelerometerJerk-kurtosis()-Y"        "frequencyBodyaccelerometerJerk-skewness()-Z"       
+[381] "frequencyBodyaccelerometerJerk-kurtosis()-Z"        "frequencyBodyaccelerometerJerk-bandsEnergy()-1,8"  
+[383] "frequencyBodyaccelerometerJerk-bandsEnergy()-9,16"  "frequencyBodyaccelerometerJerk-bandsEnergy()-17,24"
+[385] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,40"
+[387] "frequencyBodyaccelerometerJerk-bandsEnergy()-41,48" "frequencyBodyaccelerometerJerk-bandsEnergy()-49,56"
+[389] "frequencyBodyaccelerometerJerk-bandsEnergy()-57,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,16" 
+[391] "frequencyBodyaccelerometerJerk-bandsEnergy()-17,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,48"
+[393] "frequencyBodyaccelerometerJerk-bandsEnergy()-49,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,24" 
+[395] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,48" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,8"  
+[397] "frequencyBodyaccelerometerJerk-bandsEnergy()-9,16"  "frequencyBodyaccelerometerJerk-bandsEnergy()-17,24"
+[399] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,40"
+[401] "frequencyBodyaccelerometerJerk-bandsEnergy()-41,48" "frequencyBodyaccelerometerJerk-bandsEnergy()-49,56"
+[403] "frequencyBodyaccelerometerJerk-bandsEnergy()-57,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,16" 
+[405] "frequencyBodyaccelerometerJerk-bandsEnergy()-17,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,48"
+[407] "frequencyBodyaccelerometerJerk-bandsEnergy()-49,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,24" 
+[409] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,48" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,8"  
+[411] "frequencyBodyaccelerometerJerk-bandsEnergy()-9,16"  "frequencyBodyaccelerometerJerk-bandsEnergy()-17,24"
+[413] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,40"
+[415] "frequencyBodyaccelerometerJerk-bandsEnergy()-41,48" "frequencyBodyaccelerometerJerk-bandsEnergy()-49,56"
+[417] "frequencyBodyaccelerometerJerk-bandsEnergy()-57,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,16" 
+[419] "frequencyBodyaccelerometerJerk-bandsEnergy()-17,32" "frequencyBodyaccelerometerJerk-bandsEnergy()-33,48"
+[421] "frequencyBodyaccelerometerJerk-bandsEnergy()-49,64" "frequencyBodyaccelerometerJerk-bandsEnergy()-1,24" 
+[423] "frequencyBodyaccelerometerJerk-bandsEnergy()-25,48" "frequencyBodygyroscope-mean()-X"                   
+[425] "frequencyBodygyroscope-mean()-Y"                    "frequencyBodygyroscope-mean()-Z"                   
+[427] "frequencyBodygyroscope-std()-X"                     "frequencyBodygyroscope-std()-Y"                    
+[429] "frequencyBodygyroscope-std()-Z"                     "frequencyBodygyroscope-mad()-X"                    
+[431] "frequencyBodygyroscope-mad()-Y"                     "frequencyBodygyroscope-mad()-Z"                    
+[433] "frequencyBodygyroscope-max()-X"                     "frequencyBodygyroscope-max()-Y"                    
+[435] "frequencyBodygyroscope-max()-Z"                     "frequencyBodygyroscope-min()-X"                    
+[437] "frequencyBodygyroscope-min()-Y"                     "frequencyBodygyroscope-min()-Z"                    
+[439] "frequencyBodygyroscope-sma()"                       "frequencyBodygyroscope-energy()-X"                 
+[441] "frequencyBodygyroscope-energy()-Y"                  "frequencyBodygyroscope-energy()-Z"                 
+[443] "frequencyBodygyroscope-iqr()-X"                     "frequencyBodygyroscope-iqr()-Y"                    
+[445] "frequencyBodygyroscope-iqr()-Z"                     "frequencyBodygyroscope-entropy()-X"                
+[447] "frequencyBodygyroscope-entropy()-Y"                 "frequencyBodygyroscope-entropy()-Z"                
+[449] "frequencyBodygyroscope-maxInds-X"                   "frequencyBodygyroscope-maxInds-Y"                  
+[451] "frequencyBodygyroscope-maxInds-Z"                   "frequencyBodygyroscope-meanFreq()-X"               
+[453] "frequencyBodygyroscope-meanFreq()-Y"                "frequencyBodygyroscope-meanFreq()-Z"               
+[455] "frequencyBodygyroscope-skewness()-X"                "frequencyBodygyroscope-kurtosis()-X"               
+[457] "frequencyBodygyroscope-skewness()-Y"                "frequencyBodygyroscope-kurtosis()-Y"               
+[459] "frequencyBodygyroscope-skewness()-Z"                "frequencyBodygyroscope-kurtosis()-Z"               
+[461] "frequencyBodygyroscope-bandsEnergy()-1,8"           "frequencyBodygyroscope-bandsEnergy()-9,16"         
+[463] "frequencyBodygyroscope-bandsEnergy()-17,24"         "frequencyBodygyroscope-bandsEnergy()-25,32"        
+[465] "frequencyBodygyroscope-bandsEnergy()-33,40"         "frequencyBodygyroscope-bandsEnergy()-41,48"        
+[467] "frequencyBodygyroscope-bandsEnergy()-49,56"         "frequencyBodygyroscope-bandsEnergy()-57,64"        
+[469] "frequencyBodygyroscope-bandsEnergy()-1,16"          "frequencyBodygyroscope-bandsEnergy()-17,32"        
+[471] "frequencyBodygyroscope-bandsEnergy()-33,48"         "frequencyBodygyroscope-bandsEnergy()-49,64"        
+[473] "frequencyBodygyroscope-bandsEnergy()-1,24"          "frequencyBodygyroscope-bandsEnergy()-25,48"        
+[475] "frequencyBodygyroscope-bandsEnergy()-1,8"           "frequencyBodygyroscope-bandsEnergy()-9,16"         
+[477] "frequencyBodygyroscope-bandsEnergy()-17,24"         "frequencyBodygyroscope-bandsEnergy()-25,32"        
+[479] "frequencyBodygyroscope-bandsEnergy()-33,40"         "frequencyBodygyroscope-bandsEnergy()-41,48"        
+[481] "frequencyBodygyroscope-bandsEnergy()-49,56"         "frequencyBodygyroscope-bandsEnergy()-57,64"        
+[483] "frequencyBodygyroscope-bandsEnergy()-1,16"          "frequencyBodygyroscope-bandsEnergy()-17,32"        
+[485] "frequencyBodygyroscope-bandsEnergy()-33,48"         "frequencyBodygyroscope-bandsEnergy()-49,64"        
+[487] "frequencyBodygyroscope-bandsEnergy()-1,24"          "frequencyBodygyroscope-bandsEnergy()-25,48"        
+[489] "frequencyBodygyroscope-bandsEnergy()-1,8"           "frequencyBodygyroscope-bandsEnergy()-9,16"         
+[491] "frequencyBodygyroscope-bandsEnergy()-17,24"         "frequencyBodygyroscope-bandsEnergy()-25,32"        
+[493] "frequencyBodygyroscope-bandsEnergy()-33,40"         "frequencyBodygyroscope-bandsEnergy()-41,48"        
+[495] "frequencyBodygyroscope-bandsEnergy()-49,56"         "frequencyBodygyroscope-bandsEnergy()-57,64"        
+[497] "frequencyBodygyroscope-bandsEnergy()-1,16"          "frequencyBodygyroscope-bandsEnergy()-17,32"        
+[499] "frequencyBodygyroscope-bandsEnergy()-33,48"         "frequencyBodygyroscope-bandsEnergy()-49,64"        
+[501] "frequencyBodygyroscope-bandsEnergy()-1,24"          "frequencyBodygyroscope-bandsEnergy()-25,48"        
+[503] "frequencyBodyaccelerometermagnitude-mean()"         "frequencyBodyaccelerometermagnitude-std()"         
+[505] "frequencyBodyaccelerometermagnitude-mad()"          "frequencyBodyaccelerometermagnitude-max()"         
+[507] "frequencyBodyaccelerometermagnitude-min()"          "frequencyBodyaccelerometermagnitude-sma()"         
+[509] "frequencyBodyaccelerometermagnitude-energy()"       "frequencyBodyaccelerometermagnitude-iqr()"         
+[511] "frequencyBodyaccelerometermagnitude-entropy()"      "frequencyBodyaccelerometermagnitude-maxInds"       
+[513] "frequencyBodyaccelerometermagnitude-meanFreq()"     "frequencyBodyaccelerometermagnitude-skewness()"    
+[515] "frequencyBodyaccelerometermagnitude-kurtosis()"     "frequencyBodyaccelerometerJerkmagnitude-mean()"    
+[517] "frequencyBodyaccelerometerJerkmagnitude-std()"      "frequencyBodyaccelerometerJerkmagnitude-mad()"     
+[519] "frequencyBodyaccelerometerJerkmagnitude-max()"      "frequencyBodyaccelerometerJerkmagnitude-min()"     
+[521] "frequencyBodyaccelerometerJerkmagnitude-sma()"      "frequencyBodyaccelerometerJerkmagnitude-energy()"  
+[523] "frequencyBodyaccelerometerJerkmagnitude-iqr()"      "frequencyBodyaccelerometerJerkmagnitude-entropy()" 
+[525] "frequencyBodyaccelerometerJerkmagnitude-maxInds"    "frequencyBodyaccelerometerJerkmagnitude-meanFreq()"
+[527] "frequencyBodyaccelerometerJerkmagnitude-skewness()" "frequencyBodyaccelerometerJerkmagnitude-kurtosis()"
+[529] "frequencyBodygyroscopemagnitude-mean()"             "frequencyBodygyroscopemagnitude-std()"             
+[531] "frequencyBodygyroscopemagnitude-mad()"              "frequencyBodygyroscopemagnitude-max()"             
+[533] "frequencyBodygyroscopemagnitude-min()"              "frequencyBodygyroscopemagnitude-sma()"             
+[535] "frequencyBodygyroscopemagnitude-energy()"           "frequencyBodygyroscopemagnitude-iqr()"             
+[537] "frequencyBodygyroscopemagnitude-entropy()"          "frequencyBodygyroscopemagnitude-maxInds"           
+[539] "frequencyBodygyroscopemagnitude-meanFreq()"         "frequencyBodygyroscopemagnitude-skewness()"        
+[541] "frequencyBodygyroscopemagnitude-kurtosis()"         "frequencyBodygyroscopeJerkmagnitude-mean()"        
+[543] "frequencyBodygyroscopeJerkmagnitude-std()"          "frequencyBodygyroscopeJerkmagnitude-mad()"         
+[545] "frequencyBodygyroscopeJerkmagnitude-max()"          "frequencyBodygyroscopeJerkmagnitude-min()"         
+[547] "frequencyBodygyroscopeJerkmagnitude-sma()"          "frequencyBodygyroscopeJerkmagnitude-energy()"      
+[549] "frequencyBodygyroscopeJerkmagnitude-iqr()"          "frequencyBodygyroscopeJerkmagnitude-entropy()"     
+[551] "frequencyBodygyroscopeJerkmagnitude-maxInds"        "frequencyBodygyroscopeJerkmagnitude-meanFreq()"    
+[553] "frequencyBodygyroscopeJerkmagnitude-skewness()"     "frequencyBodygyroscopeJerkmagnitude-kurtosis()"    
+[555] "angle(tBodyaccelerometerMean,gravity)"              "angle(tBodyaccelerometerJerkMean),gravityMean)"    
+[557] "angle(tBodygyroscopeMean,gravityMean)"              "angle(tBodygyroscopeJerkMean,gravityMean)"         
+[559] "angle(X,gravityMean)"                               "angle(Y,gravityMean)"                              
+[561] "angle(Z,gravityMean)"                               "subjects"  
